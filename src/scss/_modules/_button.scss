@@ -1,0 +1,54 @@
+@import '_variables.scss';
+
+/* ==== Button ==== */
+
+
+.buttonWrap {
+	display: flex;
+	@media screen and (min-width: $breakPc){
+	}
+	@media screen and (max-width: $breakSp){
+		flex-direction: column;
+	}
+}
+.button {
+	color: #fff;
+	font-weight: 700;
+	font-size: 20px;
+	letter-spacing: .1em;
+	background-color: $subGreen;
+	border: solid $subBlue 2px;
+	border-radius: 4px;
+	padding: 8px 12px;
+	margin: 16px 12px 0 0;
+	cursor: pointer;
+	@media screen and (max-width: $breakSp) {
+		font-size: 16px;
+	}
+	&:hover {
+		@media screen and (min-width: $breakPc){
+			background: darken($subGreen ,10%);
+		}
+	}
+
+	&--reset {
+		background-color: $subOrange;
+		color: #fff;
+		font-weight: 700;
+		font-size: 20px;
+		letter-spacing: .1em;
+		border: solid $subBlue 2px;
+		border-radius: 4px;
+		padding: 8px 12px;
+		margin: 16px 12px 0 0;
+		cursor: pointer;
+		@media screen and (max-width: $breakSp) {
+			font-size: 16px;
+		}
+		&:hover {
+			@media screen and (min-width: $breakPc){
+				background: darken($subOrange ,10%);
+			}
+		}
+	}
+}

@@ -1,0 +1,40 @@
+@import '../_modules/variables';
+
+/* ==== Top ==== */
+
+.block2col {
+	display: flex;
+	justify-content: space-between;
+}
+
+.cardWrap {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	@media screen and (min-width: $breakPc){
+		width: 100%;
+		max-width: 800px;
+
+	}
+}
+
+.card {
+	margin: 16px auto 0;
+	@media screen and (min-width: $breakPc){
+		width: 33%;
+	}
+	a {
+		transition: opacity .3s;
+		display: block;
+		text-align: center;
+	}
+	a:hover {
+		@media screen and (min-width: $breakPc){
+			opacity: .7;
+		}
+	}
+	img {
+		margin: 0 auto;
+	}
+}

@@ -1,0 +1,40 @@
+@import '_variables.scss';
+
+/* ==== Layout ==== */
+
+.wrapper {
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+main {
+	margin: 0 auto;
+	padding: 40px 0;
+	@media screen and (min-width: $breakPc) {
+		max-width: 1200px;
+	}
+}
+
+.intro {
+	margin: 0 auto;
+	text-align: center;
+	@media screen and (min-width: $breakPc){
+		max-width: 800px;
+	}
+}
+
+.buttonWrap {
+	margin: 0 auto;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	@media screen and (min-width: $breakPc){
+		max-width: 800px;
+	}
+}
+
+.buttonWrap + .container {
+	margin-top: 20px;
+}
