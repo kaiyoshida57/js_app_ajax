@@ -46,3 +46,13 @@
 #desc {
 	font-weight: bold;
 }
+
+#select {
+	vertical-align: middle;
+	display: flex;
+	align-items: center;
+	padding: 15px 0;
+	@media screen and (min-width: $breakPc){
+		margin: 0 12px 0 0;
+	}
+}

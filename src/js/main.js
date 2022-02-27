@@ -23,7 +23,11 @@ if (btns) {
 
 					// console.log(json.results);
 
-					//配列を全て加工
+					if (json.results) {
+						// map内だと加工の都度消してしまうので、成功判定あれば中身を消す。
+						outPut.textContent = '';
+					}
+					// 配列を全て（一つ一つ）加工
 					json.results.map((movie) => {
 
 						// img
@@ -84,7 +88,7 @@ if (btns) {
 
 	const resetBtn = document.querySelector('#buttonReset');
 	if(resetBtn) {
-		resetBtn.addEventListener('click', function() {
+		resetBtn.addEventListener('click', () => {
 			outPut.innerHTML = '';
 			if (outPut.classList.contains('isShow')) {
 				outPut.classList.remove('isShow');
@@ -94,4 +98,87 @@ if (btns) {
 		});
 	}
 
+}
+
+
+
+// === selectで取得処理 =======
+
+const select = document.querySelector('#select');
+
+if (select) {
+	select.addEventListener('change', () => {
+		const selectedVal = select.value;
+
+		// console.log(selectedVal);
+		if (selectedVal === '0') {
+			console.log('okok');
+			return false;
+		}
+
+		//非同期関数。引数dirで、ボタンのvalue値入れて、取得APIのURLを判別させる。
+		const getPersonData = async (id) => {
+			// URLの取得（サイトで登録したキー含む）
+			const url = `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=f424bf39ad620f93e06361406698d85f&language=ja`;
+
+			const json = await fetch(url)
+				.then((response) => {
+					console.log('これは非同期処理成功!');
+					return response.json();
+				}).catch(error => {
+					console.error('これは非同期処理失敗!', error);
+					return null;
+				});
+
+			// console.log(json.cast);
+
+			if (json.cast) {
+				// map内だと加工の都度消してしまうので、成功判定あれば中身を消す。
+				outPut.textContent = '';
+				// ソート出来ないので有名作が上に来るように配列を逆にする。
+				json.cast.reverse();
+			}
+
+				// 配列を全て（一つ一つ）加工
+			json.cast.map((movie) => {
+
+				// img
+				let mvImgSrc = `https://image.tmdb.org/t/p/w185/${movie.poster_path}`;
+
+				let listContent = `
+					<li class="card">
+						<a href="https://www.themoviedb.org/movie/${movie.id}" target="_blank" rel="noopener">
+							<p class="mvTitle">${movie.title}</p>
+							<img src="${mvImgSrc}" class="mvImg">
+						</a>
+					</li>
+				`;
+
+				const outPut = document.querySelector('#cardWrap');
+
+				// isShowがついていなければulに挿入
+				if (! outPut.classList.contains('isShow')) {
+					outPut.insertAdjacentHTML("afterbegin", listContent);
+				}
+				// すでにあれば上に追加。
+				 else if(outPut.classList.contains('isShow') ) {
+					outPut.insertAdjacentHTML("afterbegin", listContent);
+				}
+			});
+
+			// 表示状態付け替え
+			if (outPut.classList.contains('isHidden')) {
+				outPut.classList.remove('isHidden');
+				outPut.classList.add('isShow', 'person');
+			}
+
+			// 表示判別テキスト
+			const desc = document.querySelector('#desc');
+			const optionText = select.options[select.selectedIndex].text;
+			desc.textContent = optionText + 'の出演作';
+		}
+
+		//btnのvalue値により発火
+		getPersonData(selectedVal);
+	});
 }
