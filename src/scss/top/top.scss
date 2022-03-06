@@ -21,6 +21,8 @@
 
 .card {
 	margin: 16px auto 0;
+	opacity: 0;
+	visibility: hidden;
 	@media screen and (min-width: $breakPc){
 		width: 33%;
 	}
@@ -36,5 +38,24 @@
 	}
 	img {
 		margin: 0 auto;
+	}
+	&.isFade {
+		opacity: 1;
+		visibility: visible;
+		// animation: scaleUp .3s ease 1s;
+		animation: scaleUp .5s ease-in-out;
+	}
+}
+
+@keyframes scaleUp {
+	0% {
+		opacity: 0;
+		visibility: hidden;
+		transform: translate(-7%, 7%) skewX(15deg);
+	}
+	100% {
+		opacity: 1;
+		visibility: visible;
+		transform: translate(0,0) skewX(0);
 	}
 }

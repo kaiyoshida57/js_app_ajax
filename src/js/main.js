@@ -31,10 +31,15 @@ if (btns) {
 					json.results.map((movie) => {
 
 						// img
-						let mvImgSrc = `https://image.tmdb.org/t/p/w185/${movie.poster_path}`;
+						let mvImgSrc = ``;
+						if (movie.poster_path) {
+							mvImgSrc = `https://image.tmdb.org/t/p/w185/${movie.poster_path}`;
+						} else {
+							mvImgSrc = `https://placehold.jp/747476/ffffff/185x278.png?text=No%20Image`;
+						}
 
 						let listContent = `
-							<li class="card">
+							<li class="card isFade">
 								<a href="https://www.themoviedb.org/movie/${movie.id}" target="_blank" rel="noopener">
 									<p class="mvTitle">${movie.title}</p>
 									<img src="${mvImgSrc}" class="mvImg">
@@ -73,6 +78,9 @@ if (btns) {
 						case 'top_rated':
 							dirName = '高評価'
 							break;
+						case 'upcoming':
+							dirName = '今後'
+							break;
 					}
 					desc.textContent = dirName;
 				}
@@ -85,18 +93,6 @@ if (btns) {
 		});
 	});
 
-
-	const resetBtn = document.querySelector('#buttonReset');
-	if(resetBtn) {
-		resetBtn.addEventListener('click', () => {
-			outPut.innerHTML = '';
-			if (outPut.classList.contains('isShow')) {
-				outPut.classList.remove('isShow');
-				outPut.classList.add('isHidden');
-			}
-			desc.textContent = '';
-		});
-	}
 
 }
 
@@ -112,7 +108,6 @@ if (select) {
 
 		// console.log(selectedVal);
 		if (selectedVal === '0') {
-			console.log('okok');
 			return false;
 		}
 
@@ -143,10 +138,15 @@ if (select) {
 			json.cast.map((movie) => {
 
 				// img
-				let mvImgSrc = `https://image.tmdb.org/t/p/w185/${movie.poster_path}`;
+				let mvImgSrc = ``;
+				if (movie.poster_path) {
+					mvImgSrc = `https://image.tmdb.org/t/p/w185/${movie.poster_path}`;
+				} else {
+					mvImgSrc = `https://placehold.jp/747476/ffffff/185x278.png?text=No%20Image`;
+				}
 
 				let listContent = `
-					<li class="card">
+					<li class="card isFade">
 						<a href="https://www.themoviedb.org/movie/${movie.id}" target="_blank" rel="noopener">
 							<p class="mvTitle">${movie.title}</p>
 							<img src="${mvImgSrc}" class="mvImg">
@@ -180,5 +180,19 @@ if (select) {
 
 		//btnのvalue値により発火
 		getPersonData(selectedVal);
+	});
+}
+
+
+// resetボタン
+const resetBtn = document.querySelector('#buttonReset');
+if(resetBtn) {
+	resetBtn.addEventListener('click', () => {
+		outPut.innerHTML = '';
+		if (outPut.classList.contains('isShow')) {
+			outPut.classList.remove('isShow');
+			outPut.classList.add('isHidden');
+		}
+		desc.textContent = '';
 	});
 }
